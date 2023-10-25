@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 """
     Write a script that reads stdin line by line and computes metrics:
     possible status code: 200, 301, 400, 401, 403, 404, 405 and 500
 """
+
 
 import sys
 
@@ -17,24 +18,25 @@ try:
     for line in sys.stdin:
         parts = line.split(" ")
         if len(parts) > 4:
-            continue
+            code = parts[-2]
+            size = int(parts[-1])
+            if code in status_count.keys():
+                status_count[code] += 1
+            total_size += size
+            counter += 1
 
-        status_code = int(parts[3])
-        file_size = int(parts[6])
+        if counter == 10:
+            counter = 0
+            print("File size: {}".format(total_size))
+            for key, value in sorted(status_count.items()):
+                if value != 0:
+                    print("{}: {}".format(key, value))
 
-        total_size += file_size
-        status_count[status_code] += 1
+except Exception as err:
+    pass
 
-        line_count += 1
-
-        if line_count % 10 == 0:
-            print("Total file size: File size:", total_size)
-            for code in sorted(status_count):
-                if status_count[code] > 0:
-                    print(f"{code}: {status_count[code]}")
-
-except KeyboardInterrupt:
-    print("Total file size: File size:", total_size)
-    for code in sorted(status_count):
-        if status_count[code] > 0:
-            print(f"{code}: {status_count[code]}")
+finally:
+    print("File size: {}".format(total_size))
+    for key, value in sorted(status_count.items()):
+        if value != 0:
+            print("{}: {}".format(key, value))
