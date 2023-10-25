@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 """
     You have n number of locked boxes in front of you.
@@ -7,6 +7,7 @@
 """
 
 def canUnlockAll(boxes):
+    """Prototype: def canUnlockAll(boxes)"""
     n = len(boxes)
     seen_boxes = set([0])
     unseen_boxes = set(boxes[0]).difference(set([0]))
