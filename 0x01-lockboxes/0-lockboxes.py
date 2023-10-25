@@ -6,6 +6,7 @@
     and each box may contain keys to the other boxes
 """
 
+
 def canUnlockAll(boxes):
     """Prototype: def canUnlockAll(boxes)"""
     n = len(boxes)
