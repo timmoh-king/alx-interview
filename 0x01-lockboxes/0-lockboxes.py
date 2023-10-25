@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 """
     You have n number of locked boxes in front of you.
@@ -7,19 +7,16 @@
 """
 
 def canUnlockAll(boxes):
-    if not boxes:
-        return False
-
     n = len(boxes)
-    visited = [False] * n
-    stack = [0]
+    seen_boxes = set([0])
+    unseen_boxes = set(boxes[0]).difference(set([0]))
 
-    while stack:
-        current_box = stack.pop()
-        visited[current_box] = True
+    while len(unseen_boxes) > 0:
+        index = unseen_boxes.pop()
 
-    for key in boxes[current_box]:
-        if key >= 0 and key < n and not visited[key]:
-            stack.append(key)
-
-    return all(visited)
+        if not index or index >= n or index < 0:
+            continue
+        if index not in seen_boxes:
+            unseen_boxes = unseen_boxes.union(boxes[index])
+            seen_boxes.add(index)
+    return n == len(seen_boxes)
