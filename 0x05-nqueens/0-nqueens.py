@@ -2,7 +2,6 @@
 """
 N-Queens Solver
 """
-
 import sys
 
 
