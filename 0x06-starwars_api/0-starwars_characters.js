@@ -1,10 +1,9 @@
 #!/usr/bin/node
-
 const request = require('request');
 
 const movieId = process.argv[2];
 
-const get = (url) => {
+const get = url => {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
       if (error) {
