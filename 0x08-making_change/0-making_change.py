@@ -1,27 +1,26 @@
-#!/usr/bin/env python3
-
-"""
-    Given a pile of coins of different values, determine the fewest number of
-    coins needed to meet a given amount total.
+#!/usr/bin/python3
+"""Determine the fewest number of coins needed
+to meet a given amount total.
 """
 
 
 def makeChange(coins, total):
+    """Determine the fewest number of coins needed
+    to meet a given amount total.
+    Greedy Approach which is not always the optimal
+    solution
     """
-        Return: fewest number of coins needed to meet total
-        If total is 0 or less, return 0
-        If total cannot be met by any number of coins you have, return -1
-        coins is a list of the values of the coins in your possession
-    """
-    sum = 0
-
     if total <= 0:
         return 0
 
-    for i in coins:
-        sum += i
+    coins.sort(reverse=True)
 
-    if sum < total:
-        return total - sum
-    else:
+    coin_count = 0
+    for coin in coins:
+        coin_count += total // coin
+        total %= coin
+
+    if total != 0:
         return -1
+
+    return coin_count
